@@ -30,14 +30,15 @@ Para conferir antes de publicar: `npm run preview`.
 ## Como está organizado
 
 ```
-index.html        o site inteiro: HTML, estilos e animações
-public/img/       as logos do portfólio e a marca da LogoMorph
-vite.config.js    build (caminhos relativos: funciona na raiz e em subpasta)
-vercel.json       configuração de deploy na Vercel
+src/data/            preço, portfólio, passos e contato
+src/components/      uma peça por seção da página
+src/hooks/useMotion  todas as animações num lugar só
+src/index.css        o CSS da marca (metal, ouro, relevo)
+public/img/          as logos do portfólio e a marca
 ```
 
-Não tem framework nem passo de compilação de código: é HTML, CSS e JavaScript.
-As animações usam [GSAP](https://gsap.com) + ScrollTrigger, carregados por CDN.
+React + TypeScript + Vite + Tailwind, com [GSAP](https://gsap.com) e ScrollTrigger
+nas animações. Essa é a stack que o [Lovable](https://lovable.dev) edita.
 
 ## Publicar
 
@@ -58,15 +59,25 @@ Como o build usa caminhos relativos, funciona tanto na raiz do domínio quanto d
 
 | O quê | Onde |
 |---|---|
-| Telefone do WhatsApp | procure por `5562999283581` |
-| Instagram | procure por `logo_morph3` |
-| Preços | seção `<!-- SERVIÇOS -->` |
-| Trabalhos do portfólio | seção `<!-- PORTFÓLIO -->` + imagens em `public/img/` |
-| Cores | bloco `:root` no topo do `<style>` |
+| Telefone do WhatsApp e Instagram | `src/data/contato.ts` |
+| Preços e o que cada serviço inclui | `src/data/servicos.ts` |
+| Trabalhos do portfólio | `src/data/trabalhos.ts` |
+| Os três passos do "Simples assim" | `src/data/passos.ts` |
+| Cores | bloco `:root` em `src/index.css` (e `tailwind.config.js`) |
+| Animações | `src/hooks/useMotion.ts` |
+
+Repare que preço, telefone e portfólio ficam em arquivos de dados: dá para
+mudar sem entender o resto do código.
 
 ### Para adicionar um trabalho novo
 
 1. Coloque a imagem em `public/img/`.
-2. Copie um bloco `<figure class="folio">` na seção do portfólio.
-3. Troque o `src`, o `alt`, o nome, a categoria e o `data-tipo`
+2. Abra `src/data/trabalhos.ts` e copie um bloco.
+3. Troque o arquivo, o nome, o tipo e a categoria
    (`times`, `empresas` ou `comida` — é o que os filtros usam).
+
+## Editar no Lovable
+
+Em [lovable.dev](https://lovable.dev): **New Project → Import from GitHub**,
+autorize o app do Lovable e escolha este repositório. Alterações feitas lá
+voltam para o GitHub, e a Vercel republica sozinha.

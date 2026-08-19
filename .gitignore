@@ -1,0 +1,12 @@
+node_modules/
+dist/
+.vite/
+.DS_Store
+Thumbs.db
+*.local
+.env
+.env.*
+.vercel
+
+# notas internas de projeto (nao publicar)
+PRODUCT.md
